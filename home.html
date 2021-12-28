@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronics Tweaker</title>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/customer-left-style.css">
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Electronics Tweaker</h3>
+        </div>
+        <ul class="list-unstyled components">
+            <p>Customer DashBoard</p>
+            <li class="active">
+                <a href="#">Complaint History</a>
+            </li>
+            <li>
+                <a href="#">Add New Complaint</a>
+            </li>
+            <li>
+                <a href="#">Settings</a>
+            </li>
+        </ul>
+        <ul class="list-unstyled CTAs">
+            <li>
+                <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="article">Download Excel</a>
+            </li>
+            <li>
+                <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="download">Logout</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="card card-outline-secondary customContainer">
+        <div class="card-body">
+            <h3 class="text-center">Add New Complaints</h3>
+            <hr>
+            <form autocomplete="off" class="form" role="form" id="complaintForm">
+                <label for="category">Select Category</label>
+                <div class="form-group">
+                    <select class="form-control" id="categories">
+                        <option value="NotSelected" selected disabled>choose category</option>
+                    </select>
+                </div>
+                <label>Select Brand</label>
+                <div class="form-group">
+                    <select class="form-control" id="brands" disabled>
+                        <option value="NotSelected" selected disabled>choose Brand</option>
+                    </select>
+                </div>
+                <label>Provide brief description</label>
+                <div class="form-group">
+                    <input class="form-control" type="text" id="description" disabled>
+                </div>
+                <div id="complaintFormResponse"></div>
+                <hr>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <button class="btn btn-default btn-lg btn-block" type="reset">Cancel</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-success btn-lg btn-block" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div><!-- /form card cc payment -->
+
+    <script>
+        fetch("https://electronics-tweaker.herokuapp.com/api/public/categories", {
+            method: 'GET',
+            redirect: 'follow'
+        })
+            .then(async (response) => {
+                response = await response.json();
+                let select = document.getElementById('categories');
+                for (let res of response) {
+                    let opt = document.createElement('option');
+                    opt.value = res._id;
+                    opt.innerHTML = res.name;
+                    select.appendChild(opt);
+                }
+            })
+            .catch(error => {
+                let select = document.getElementById('categories');
+                let opt = document.createElement('option');
+                opt.value = 'Error in fetching options..!';
+                opt.innerHTML = 'Error in fetching options..!';
+                select.appendChild(opt);
+            })
+    </script>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="css/left-style.css">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
+    <!-- Custom JS -->
+    <script src="js/customer.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+    </script>
+</body>
+
+</html>

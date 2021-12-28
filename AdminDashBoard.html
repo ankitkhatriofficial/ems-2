@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin DashBoard | Electronics Tweaker</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="css/left-style.css">
+    <link rel="stylesheet" href="css/engineer-form.css">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
+
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Electronics Tweaker</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p>Admin DashBoard</p>
+                <li class="active">
+                    <a onclick="showAllComplaintsRequests()">Complaint Requests</a>
+                </li>
+                <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Option
+                        Menu</a>
+
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#brandMenu" data-toggle="collapse" aria-expanded="false"
+                                class="dropdown-toggle">Brand</a>
+                            <ul class="collapse list-unstyled" id="brandMenu">
+                                <li><a onclick="showAllBrands()">See All Brands</a></li>
+                                <li><a onclick="showAddBrand()"> Add Brand</a></li>
+                                <li><a onclick="updateBrand()">Update Brand</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#categoryMenu" data-toggle="collapse" aria-expanded="false"
+                                class="dropdown-toggle">Category</a>
+                            <ul class="collapse list-unstyled" id="categoryMenu">
+                                <li><a onclick="showAllCategories()">See All Category</a></a></li>
+                                <li><a onclick="showAddCategoryTable()">Add Category</a></li>
+                                <li><a href="">Update Category</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#ApplianceMenu" data-toggle="collapse" aria-expanded="false"
+                                class="dropdown-toggle">Appliance</a>
+                            <ul class="collapse list-unstyled" id="ApplianceMenu">
+                                <li><a href="">See All Appliance</a></li>
+                                <li><a href="">Add Appliance</a></li>
+                                <li><a href="">Update Appliance</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#engineerMenu" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle">Engineers</a>
+                    <ul class="collapse list-unstyled" id="engineerMenu">
+                        <li>
+                            <a onclick="showAllEngineers()">See All Engineers</a>
+                        </li>
+                        <li>
+                            <a onclick="showAddNewEngineerForm()">Add New Engineer</a>
+                        </li>
+                        <li>
+                            <a href="#">Update Engineer Details</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#customerMenu" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle">Customers</a>
+                    <ul class="collapse list-unstyled" id="customerMenu">
+                        <li>
+                            <a onclick="showAllCustomers()">See All Customers</a>
+                        </li>
+                        <li>
+                            <a onclick="showAddNewCustomerForm()">Add New Customer</a>
+                        </li>
+                        <li>
+                            <a href="#">Update Customer Details</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Settings</a>
+                </li>
+            </ul>
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="article">Download Excel</a>
+                </li>
+                <li>
+                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="download">Logout</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <i class="fas fa-align-left"></i>
+                <span>Toggle SideMenu</span>
+            </button>
+            <div style="height: 20px;"></div>
+
+            <!-- All Complaint Requests Table -->
+            <table class="table" id="complaintsRequestTable">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Serial No</th>
+                        <th scope="col">Complaint Id</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Contact No</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="col">1</td>
+                        <td>61c8a7ce19d4905a9aa42f0a</td>
+                        <td>Samsung</td>
+                        <td>Tv</td>
+                        <td>Not working</td>
+                        <td>Shiwani Jain</td>
+                        <td>9834162738</td>
+                        <td>pending</td>
+                    </tr>
+                    <tr>
+                        <td scope="col">2</td>
+                        <td>61c8a7473834989a9aa42f0a</td>
+                        <td>Voltas</td>
+                        <td>Ac</td>
+                        <td>Remote Control damage</td>
+                        <td>Shiwani Jain</td>
+                        <td>9834162738</td>
+                        <td>completed</td>
+                    </tr>
+                    <tr>
+                        <td scope="col">3</td>
+                        <td>3jkckj19d4905a9aarrtrt42f0a</td>
+                        <td>Whirpool</td>
+                        <td>Refridgerator</td>
+                        <td>damaged</td>
+                        <td>Hemant Yadav</td>
+                        <td>9834222261</td>
+                        <td>completed</td>
+                    </tr>
+                    <tr>
+                        <td scope="col">4</td>
+                        <td>37810kd673re4wwqsjkdd2f0a</td>
+                        <td>Orient</td>
+                        <td>Ac</td>
+                        <td>Burn</td>
+                        <td>Sushmita Singh</td>
+                        <td>9734152744</td>
+                        <td>completed</td>
+                    </tr>
+                    <tr>
+                        <td scope="col">5</td>
+                        <td>61502c16896f7d4ee3b8ad92</td>
+                        <td>Apple</td>
+                        <td>laptop</td>
+                        <td>Not working</td>
+                        <td>Bobby Khatri</td>
+                        <td>7209703947</td>
+                        <td>completed</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Show All Brands -->
+            <table class="table" id="showAllBrands" hidden>
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Serial No</th>
+                        <th scope="col">Brand Id</th>
+                        <th scope="col">Brand Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <!-- Add Brand Table -->
+            <table class="table" id="addBrandTable" hidden>
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Add New Brand</th>
+                    </tr>
+                    <form autocomplete="off" class="form" id="formLogin" name="formLogin">
+                        <tr>
+                            <td scope="col"><input class="form-control" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td scope="col">
+                                <button class="btn btn-success btn-sm float-right" type="button">Add Brand</button>
+                            </td>
+                        </tr>
+                    </form>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <!-- Show All Categories -->
+            <table class="table" id="showAllCategories" hidden>
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Serial No</th>
+                        <th scope="col">Category Id</th>
+                        <th scope="col">Category Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <!-- Add Category Table -->
+            <table class="table" id="addCategoryTable" hidden>
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Add New Category</th>
+                    </tr>
+                    <form autocomplete="off" class="form" id="addCategoryForm">
+                        <tr>
+                            <td scope="col"><input class="form-control" type="text" name="categoryName"
+                                    id="categoryName">
+                                <span id="addCategoryResponse"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col">
+                                <button class="btn btn-success btn-sm float-right" type="submit">Add Category</button>
+                            </td>
+                        </tr>
+                    </form>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <!-- Show All Engineers -->
+            <table class="table" id="showAllEngineers" hidden>
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Serial No</th>
+                        <th scope="col">Engineer Id</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Contact No</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <!-- Engineer form -->
+            <div class="container register" hidden id="addEngineerForm">
+                <div class="row">
+                    <div class="col-md-3 register-left">
+                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+                        <h3>Engineer Form</h3>
+                        <p>Fill the details correctly..!</p>
+                    </div>
+                    <div class="col-md-9 register-right">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">Add New Engineer</h3>
+                                <div class="row register-form">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="First Name *"
+                                                value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="Email *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                <option class="hidden" selected disabled>Please select your Sequrity
+                                                    Question</option>
+                                                <option>What is your Birthdate?</option>
+                                                <option>What is Your old Phone Number</option>
+                                                <option>What is your Pet Name?</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Password *"
+                                                value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="maxl">
+                                                <label class="radio inline">
+                                                    <input type="radio" name="gender" value="male" checked>
+                                                    <span> Male </span>
+                                                </label>
+                                                <label class="radio inline">
+                                                    <input type="radio" name="gender" value="female">
+                                                    <span>Female </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="Last Name *"
+                                                value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" minlength="10" maxlength="10" name="txtEmpPhone"
+                                                class="form-control" placeholder="Your Phone *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Enter Your Answer *"
+                                                value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Confirm Password *"
+                                                value="" />
+                                        </div>
+                                        <input type="submit" class="btnRegister" value="Add Engineer" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Show All Customers -->
+            <table class="table" id="showAllCustomers" hidden>
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Serial No</th>
+                        <th scope="col">Customer Id</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Contact No</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <!-- Customer Form -->
+            <div class="container register register2" id="addCustomerForm" hidden>
+                <div class="row">
+                    <div class="col-md-3 register-left">
+                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+                        <h3>Customer Form</h3>
+                        <p>Fill the details correctly..!</p>
+                    </div>
+                    <div class="col-md-9 register-right">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">Add New Customer</h3>
+                                <div class="row register-form">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="First Name *"
+                                                value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="Email *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="HouseNo *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="City *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Password *"
+                                                value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="maxl">
+                                                <label class="radio inline">
+                                                    <input type="radio" name="gender" value="male" checked>
+                                                    <span> Male </span>
+                                                </label>
+                                                <label class="radio inline">
+                                                    <input type="radio" name="gender" value="female">
+                                                    <span>Female </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="Last Name *"
+                                                value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" minlength="10" maxlength="10" name="txtEmpPhone"
+                                                class="form-control" placeholder="Your Phone *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="City *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Pincode *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Confirm Password *"
+                                                value="" />
+                                        </div>
+                                        <input type="submit" class="btnRegister" value="Add Customer" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- jQuery CDN - Slim version (=without AJAX) -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <!-- Popper.JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+            integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+            crossorigin="anonymous"></script>
+        <!-- Bootstrap JS -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+            integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+            crossorigin="anonymous"></script>
+        <!-- jQuery Custom Scroller CDN -->
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+        <!-- Custom Script source -->
+        <script src="js/admin.js"></script>
+        <script src="js/manage.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#sidebar").mCustomScrollbar({
+                    theme: "minimal"
+                });
+                $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar, #content').toggleClass('active');
+                    $('.collapse.in').toggleClass('in');
+                    $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+                });
+            });
+        </script>
+
+        <script>
+            var currentTable = document.getElementById('complaintsRequestTable');
+            // fetch("https://electronics-tweaker.herokuapp.com/api/a/all/complaints", {
+            //     method: 'GET',
+            //     redirect: 'follow'
+            // }).then(async (response) => {
+            //     response = await response.json();
+            //     let table = currentTable.getElementsByTagName('tbody')[0]
+            //     count = 0;
+            //     for (res of response) {
+            //         let newrow = table.insertRow();
+            //         let columnSerialNo = newrow.insertCell();
+            //         let columnId = newrow.insertCell();
+            //         let columnBrand = newrow.insertCell();
+            //         let columnCategory = newrow.insertCell();
+            //         let columnDescription = newrow.insertCell();
+            //         let columnCustomer = newrow.insertCell();
+            //         let columnContact = newrow.insertCell();
+            //         let columnStatus = newrow.insertCell();
+            //         columnSerialNo.appendChild(document.createTextNode(++count));
+            //         columnId.appendChild(document.createTextNode(res._id));
+            //         columnBrand.appendChild(document.createTextNode(res.brand.name));
+            //         columnCategory.appendChild(document.createTextNode(res.category.name));
+            //         columnDescription.appendChild(document.createTextNode(res.description));
+            //         columnCustomer.appendChild(document.createTextNode(res.customer));
+            //         columnContact.appendChild(document.createTextNode(res.customer));
+            //         columnStatus.appendChild(document.createTextNode(res.status));
+            //     }
+            // }).catch(error => {
+            //     console.log("error in sending request..!")
+            // })
+        </script>
+</body>
+
+</html>
